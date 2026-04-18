@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", sans-serif;
+  
+  --color-bg-main: #f0f2f5;
+  --color-bg-card: #ffffff;
+  --color-sidebar-bg: #0f172a;
+  --color-accent: #059669;
+  --color-accent-light: #ecfdf5;
+  --color-primary: #1e293b;
+  --color-secondary: #64748b;
+  --color-text-main: #0f172a;
+  --color-border-subtle: #e2e8f0;
+  --color-gold: #f59e0b;
+
+  /* Map old brand colors to new primary for consistency if needed, but let's use the explicit ones */
+  --color-brand: #059669; 
+  --color-brand-dark: #047857;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-main text-text-main font-sans;
+  }
+}
+
+@layer components {
+  .card-density {
+    @apply bg-white rounded-2xl border border-border-subtle shadow-sm overflow-hidden;
+  }
+  
+  .pill-zar {
+    @apply bg-accent-light text-accent px-3 py-1 rounded-full font-semibold text-sm;
+  }
+}
+

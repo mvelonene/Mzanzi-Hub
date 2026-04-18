@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "bio": { "type": "string" },
+        "isSeller": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "Hub": {
+      "title": "Hub",
+      "description": "A creator's storefront or community hub",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "bannerImage": { "type": "string" },
+        "logoImage": { "type": "string" },
+        "categories": { "type": "array", "items": { "type": "string" } },
+        "totalRevenue": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "name", "slug", "createdAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A digital product, course, or service",
+      "type": "object",
+      "properties": {
+        "hubId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "currency": { "type": "string" },
+        "type": { "type": "string", "enum": ["course", "membership", "service", "digital_download"] },
+        "contentUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["hubId", "ownerId", "name", "price", "type", "createdAt"]
+    },
+    "Access": {
+      "title": "Access",
+      "description": "User access to a product or hub",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "hubId": { "type": "string" },
+        "productId": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "cancelled", "expired"] },
+        "purchasedAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "hubId", "productId", "status", "purchasedAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A chat message in a community channel",
+      "type": "object",
+      "properties": {
+        "hubId": { "type": "string" },
+        "channelId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["hubId", "channelId", "authorId", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Public user profiles"
+    },
+    "/hubs/{hubId}": {
+      "schema": "Hub",
+      "description": "Creator hubs"
+    },
+    "/hubs/{hubId}/products/{productId}": {
+      "schema": "Product",
+      "description": "Products within a hub"
+    },
+    "/users/{userId}/access/{accessId}": {
+      "schema": "Access",
+      "description": "User purchases and memberships"
+    },
+    "/hubs/{hubId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Community chat messages"
+    }
+  }
+}
